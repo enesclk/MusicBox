@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:aura="http://java.sun.com/xml/ns/javaee">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Box</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.dev.js"></script>
+    <link href="/styles.css" rel="stylesheet" />
+</head>
+<body>
+
+
+
+    <main class="container">
+
+        <section class="list-intro">
+        </section>
+
+        <section class="awesome-list">
+
+            <div class="awesome-list-item">
+                <span>[NoCopyRightSounds] Alan Walker - Fade</span><div id="music_1" class="heart" onClick="upvote(this.id)"><span class="count">15</span></div>
+            </div>
+
+            <div class="awesome-list-item">
+                <span>[NoCopyRightSounds] Lensko - Let's Go!</span><div id="music_2" class="heart" onClick="upvote(this.id)"><span class="count">20</span></div>
+            </div>
+
+            <div class="awesome-list-item">
+                <span>[NoCopyRightSounds] Lensko - Cetus</span><div id="music_3" class="heart" onClick="upvote(this.id)"><span class="count">16</span></div>
+            </div>
+
+            <div class="awesome-list-item">
+                <span>[NoCopyRightSounds] JJD - Adventure</span><div id="music_4" class="heart" onClick="upvote(this.id)"><span class="count">28</span></div>
+            </div>
+        </section>
+
+    </main>
+
+
+    <div class="timer">0</div>
+    <div class="notification"></div>
+
+    <!--
+
+    <div id="resetButton">
+        <button onClick="resetTimer()">Reset Timer</button>
+    </div>
+
+    -->
+
+    <!-- Audio files below -->
+
+    <audio id="track0">
+        <source src="[NoCopyRightSounds] Alan Walker - Fade.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <audio id="track1">
+        <source src="[NoCopyRightSounds] Lensko - Let's Go!.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <audio id="track2">
+        <source src="[NoCopyRightSounds] Lensko - Cetus.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <audio id="track3">
+        <source src="[NoCopyRightSounds] JJD - Adventure.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+
+
+
+<script src="/javascript.js"></script>
+</body>
+</html>
