@@ -10,8 +10,7 @@ var  server = app.listen(4000, function() {
 //Static files
 app.use(express.static('public'));
 
-
-var countdown = 10;
+var countdown = 45;
 
 // Socket setup & pass server
 var io = socket(server);
@@ -23,9 +22,14 @@ io.sockets.on('connection', function(socket) {
         socket.broadcast.emit('upvoting', data);
     });
 
+
+    /*
+
     socket.on('resetTimer', function () {
-        countdown = 5;
+        countdown = 45;
     });
+
+    */
 
 
 });

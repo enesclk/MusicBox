@@ -15,6 +15,7 @@ function upvote(id) { //HTML template'ten direk olarak tetikleniyor. Heart iconl
         upvotedTrack: id
     });
     span[0].innerHTML++;
+    span[0].style.color = 'blue';
 }
 
 socket.on('upvoting', function(data){ //socket.emit'ten farklı olarak bu fonksiyon server tarafından upvoting event'i tetiklendiğinde çalışıyor.
@@ -26,7 +27,7 @@ socket.on('upvoting', function(data){ //socket.emit'ten farklı olarak bu fonksi
 socket.on('timer', function(data) {
     var div = document.getElementsByClassName('timer')[0];
 
-    div.innerHTML = data.countdown+" seconds left";
+    div.innerHTML = "Kalan süre: "+data.countdown+" sn";
 });
 
 
@@ -65,9 +66,13 @@ socket.on('endOfTime', function (data) {
 
 });
 
+/*
+
 function resetTimer() {
     socket.emit('resetTimer');
 }
+
+*/
 
 function playMusic(winnerTrack) {
 
