@@ -3,12 +3,84 @@ var socket = io.connect('http://localhost:4000');
 
 //Todo: Our code starts here..
 
-function upvote(id) { //HTML template'ten direk olarak tetikleniyor. Heart iconlarına tıklandığı zaman çalışıyor.
+
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyAxqXVwq3POeLSx6tLHuK8OYiv7MuTv8Mw",
+    authDomain: "musicbox-b9442.firebaseapp.com",
+    databaseURL: "https://musicbox-b9442.firebaseio.com",
+    projectId: "musicbox-b9442",
+    storageBucket: "musicbox-b9442.appspot.com",
+    messagingSenderId: "133777007114"
+};
+firebase.initializeApp(config);
+
+
+const allMusics = firebase.database().ref('musics');
+
+allMusics.once("value")
+    .then(function(snapshot) {
+        snapshot.forEach(function(childSnapshot) {
+            var key = childSnapshot.key;
+            var val = childSnapshot.val();
+            var id = "";
+
+            if (key == "Alan Walker - Fade")
+                id = "music_1";
+            else if (key == "Lensko - Let's Go!")
+                id = "music_2";
+            else if (key == "Lensko - Cetus")
+                id = "music_3";
+            else if (key == "JJD - Adventure")
+                id = "music_4";
+
+            var div = document.getElementById(id);
+            var span = div.querySelectorAll(".count");
+
+            span[0].innerHTML = val;
+
+        });
+    });
+
+
+
+function upvote(id) { //HTML'den direk olarak tetikleniyor. Heart iconlarına tıklandığı zaman çalışıyor.
     console.log(id);
     var div = document.getElementById(id);
-    var span = div.querySelectorAll(".count");
+    var songNameSpan = document.getElementById(id).parentNode.querySelectorAll("span");
+
+    var song = songNameSpan[0].innerHTML; //tıklanan heart iconunun parent divinin ilk span elemanı; yani şarkının ismi.
+    console.log(song);
+
+    var span = div.querySelectorAll(".count"); //tıklanan heart iconunun içindeki upvote değeri
     var count = span[0].innerHTML;
-    console.log(count);
+
+
+    var songName = song.replace("[NoCopyRightSounds] ","");
+    console.log(songName);
+
+    var firebaseSongRef = allMusics.child("/"+songName);
+    var songUpvoteValue = 0;
+
+    firebaseSongRef.once("value", function(snapshot) {
+        snapshot.forEach(function(child) {
+            console.log(child.key+": "+child.val());
+        });
+    });
+
+    firebaseSongRef.on("value", function(snap) {
+        console.log(snap.val());
+        songUpvoteValue = snap.val();
+    });
+
+    songUpvoteValue++;
+
+    data = {[songName]: songUpvoteValue};
+
+    allMusics.update(data);
+
+
+
 
     socket.emit('upvoting', { //Serverın yakalaması için bu event oluşturuldu.
         upvoteCount: count,
