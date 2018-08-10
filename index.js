@@ -46,8 +46,6 @@ io.sockets.on('connection', function(socket) {
 
     console.log('made socket connection', socket.id);
 
-
-
     socket.on('upvoting', function (data) {
         socket.broadcast.emit('upvoting', data);
     });
